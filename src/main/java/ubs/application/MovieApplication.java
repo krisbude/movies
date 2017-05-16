@@ -22,7 +22,7 @@ public class MovieApplication {
 
 	@Bean
 	public ExecutorService executorService() {
-		return Executors.newSingleThreadExecutor();
+		return Executors.newFixedThreadPool(5);
 	}
 
 }
