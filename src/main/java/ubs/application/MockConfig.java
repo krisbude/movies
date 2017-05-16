@@ -8,6 +8,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Profile;
 
 import ubs.domain.Movie;
+import ubs.services.ICommentService;
 import ubs.services.IMovieService;
 
 @Configuration
@@ -20,6 +21,13 @@ public class MockConfig {
 		Mockito.when(movieService.read(Mockito.anyLong())).thenAnswer(
 				invocation -> createMovie((Long) invocation.getArguments()[0]));
 		return movieService;
+	}
+
+	@Bean
+	public ICommentService mockCommentService() {
+		ICommentService commentService = mock(ICommentService.class);
+		Mockito.when(commentService.create(Mockito.any())).thenReturn(1L);
+		return commentService;
 	}
 
 	private Movie createMovie(Long id) {
