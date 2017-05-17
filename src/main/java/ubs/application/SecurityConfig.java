@@ -14,8 +14,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         http
             .authorizeRequests()
-                .antMatchers("/movies/**").hasRole("ADMIN")
-                .antMatchers("/comments/**").hasRole("USER")
+                .antMatchers("/movies**").hasRole("ADMIN")
+                .antMatchers("/comments**").hasAnyRole("ADMIN","USER")
                 .and()
             .httpBasic()
             .and()
@@ -28,8 +28,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
         auth
             .inMemoryAuthentication()
-                .withUser("kris").password("kris").roles("ADMIN")
+                .withUser("admin").password("admin").roles("ADMIN")
                 .and()
-                .withUser("pino").password("pino").roles("USER");
+                .withUser("user").password("user").roles("USER");
     }
 }
