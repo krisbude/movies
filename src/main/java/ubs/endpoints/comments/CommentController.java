@@ -1,5 +1,6 @@
 package ubs.endpoints.comments;
 
+import java.util.Collection;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.ExecutorService;
 import java.util.logging.Logger;
@@ -47,6 +48,13 @@ public class CommentController {
 			throws InterruptedException, ExecutionException {
 		logger.info(()-> "Retrieving a comment: "+ id);
 		return executorService.submit(() -> commentService.read(id)).get();
+	}
+
+	@RequestMapping(value = "", produces = { "application/json" }, method = RequestMethod.GET)
+	public Collection<Comment> getAllComments()
+			throws InterruptedException, ExecutionException {
+		logger.info(()-> "Retrieving all comments");
+		return executorService.submit(() -> commentService.readAll()).get();
 	}
 
 }

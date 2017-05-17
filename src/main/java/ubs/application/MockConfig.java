@@ -31,22 +31,33 @@ public class MockConfig {
 	@Bean
 	public IMovieService mockMovieService() {
 		IMovieService movieService = mock(IMovieService.class);
+
 		Mockito.when(movieService.read(Mockito.anyLong())).thenAnswer(
 				invocation -> doGet((Long) invocation.getArguments()[0], movies));
+
 		Mockito.when(movieService.create(Mockito.any())).thenAnswer(
 				invocation -> createMovie(invocation));
+
+		Mockito.when(movieService.readAll()).thenAnswer(
+				invocation -> movies.values());
 		return movieService;
 	}
 
 	@Bean
 	public ICommentService mockCommentService() {
 		ICommentService commentService = mock(ICommentService.class);
+
 		Mockito.when(commentService.read(Mockito.anyLong())).thenAnswer(
 				invocation -> doGet((Long)invocation.getArguments()[0], comments));
+
 		Mockito.when(commentService.create(Mockito.any())).thenAnswer(
 				invocation -> createComment(invocation));
+
 		Mockito.when(commentService.getCommentsForMovie(Mockito.anyLong())).thenAnswer(
 				invocation -> getCommentsForMovie(invocation));
+
+		Mockito.when(commentService.readAll()).thenAnswer(
+				invocation -> comments.values());
 		return commentService;
 	}
 
@@ -67,6 +78,13 @@ public class MockConfig {
 		movie.setId(movieIds.incrementAndGet());
 		movies.put(movie.getId(), movie);
 		return movie;
+	}
+
+	private void updateMovie(InvocationOnMock invocation){
+		Movie movie = (Movie) invocation.getArguments()[0];
+		if (movies.containsKey(movie.getId())){
+			movies.put(movie.getId(), movie);
+		}
 	}
 
 	private <T> T doGet(Long id, Map<Long, T> map){
