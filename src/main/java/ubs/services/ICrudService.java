@@ -2,7 +2,7 @@ package ubs.services;
 
 public interface ICrudService<T>{
 
-	Long create(T object);
+	T create(T object);
 
 	T read(Long id);
 
