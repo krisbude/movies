@@ -1,6 +1,8 @@
 package ubs.domain;
 
-public class Movie{
+import java.io.Serializable;
+
+public class Movie implements Serializable{
 
 	private Long id;
 

@@ -1,6 +1,8 @@
 package ubs.domain;
 
-public class Comment {
+import java.io.Serializable;
+
+public class Comment implements Serializable{
 
 	private Long id;
 
@@ -23,7 +25,7 @@ public class Comment {
 		return this.id;
 	}
 
-	private void setId(Long id) {
+	public void setId(Long id) {
 		this.id = id;
 	}
 
@@ -39,7 +41,7 @@ public class Comment {
 		return this.userName;
 	}
 
-	private void setUserName(String userName) {
+	public void setUserName(String userName) {
 		this.userName = userName;
 	}
 
